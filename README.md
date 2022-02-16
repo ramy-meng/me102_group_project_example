@@ -112,6 +112,53 @@ Optional:
             }
          }
          ```
+         
+  - Setting Screen
+   - (Read/GET) Query current user information 
+        ```swift
+        var currentUser: User = null
+        query.findInBackground(object: FindCallback<Post> {
+           override fun done(user: User, e: ParseException?) {
+               if (e != null) {
+                   //Something went wrong
+                   Log.e(TAG, "Error fetching user information")
+               } else {
+                   if (user != null) {
+                       for (user in posts) {
+                           Log.i(TAG, "User: " + user.Info())
+                       }
+                       currentUser = user
+                       adapter.notifyDataSetChanged()
+                   }
+               }
+           }
+
+        })
+        ```
+        
+    - Calendar View Screen 
+     - (Read/GET) DailyInput Information to show on the calendar
+        ```swift
+        var allDailyInputs: MutableList<DailyInput> = mutableListOf()
+        query.findInBackground(object: FindCallback<DailyInput> {
+           override fun done(dailyInputs: MutableList<DailyInput>?, e: ParseException?) {
+               if (e != null) {
+                   //Something went wrong
+                   Log.e(TAG, "Error fetching daily inputs")
+               } else {
+                   if (posts != null) {
+                       for (dailyInput in dailyInputs) {
+                           Log.i(TAG, "Post: " + post.getDescription())
+                       }
+                       allDailyInputs.addAll(dailyInputs)
+                       adapter.notifyDataSetChanged()
+                   }
+               }
+           }
+
+        })
+        ```
+
       - (Create/POST) Create a new like on a post
       - (Delete) Delete existing like
       - (Create/POST) Create a new comment on a post
